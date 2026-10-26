@@ -1,1 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المساعد الذكي - خديجة إبراهيم</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{font-family:'Cairo',sans-serif;box-sizing:border-box}
+body{margin:0;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;color:#1f2937}
+.container{max-width:900px;margin:0 auto;padding:20px}
+.card{background:rgba(255,255,255,0.95);border-radius:20px;padding:25px;margin:15px 0;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+h1{color:white;text-align:center;font-size:28px;text-shadow:0 2px 10px rgba(0,0,0,0.3)}
+.btn{background:#764ba2;color:white;border:none;padding:12px 25px;border-radius:30px;cursor:pointer;font-weight:bold;width:100%;margin:5px 0}
+input,textarea{width:100%;padding:12px;border-radius:10px;border:2px solid #e5e7eb;margin:8px 0;font-size:16px}
+.header{text-align:center;padding:30px 0;color:white}
+.badge{background:rgba(255,255,255,0.2);padding:5px 15px;border-radius:20px;display:inline-block;color:white;margin:5px}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>🎓 المساعد الذكي للطالب</h1>
+<p>إعداد: خديجة إبراهيم</p>
+<div class="badge">✨ متصل</div>
+<div class="badge">📚 2026</div>
+</div>
 
+<div class="container">
+<div class="card">
+<h3>📝 تنظيم دروسي</h3>
+<input id="taskInput" placeholder="اكتبي مادة مثل: رياضيات، علوم...">
+<button class="btn" onclick="addTask()">إضافة</button>
+<ul id="taskList"></ul>
+</div>
+
+<div class="card">
+<h3>📊 حساب معدلي</h3>
+<input id="n1" type="number" placeholder="مادة 1 (من 20)">
+<input id="n2" type="number" placeholder="مادة 2 (من 20)">
+<input id="n3" type="number" placeholder="مادة 3 (من 20)">
+<button class="btn" onclick="calc()">احسب المعدل</button>
+<p id="result" style="font-weight:bold;text-align:center;font-size:20px"></p>
+</div>
+
+<div class="card">
+<h3>⏰ مؤقت الدراسة - بومودورو</h3>
+<p id="timer" style="font-size:40px;text-align:center">25:00</p>
+<button class="btn" onclick="startTimer()">ابدأ الدراسة</button>
+<button class="btn" style="background:#6b7280" onclick="resetTimer()">إعادة</button>
+</div>
+
+<div class="card" style="text-align:center">
+<h3>💡 تحفيز اليوم</h3>
+<p id="quote">"النجاح هو مجموع الجهود الصغيرة المتكررة يومياً"</p>
+<button class="btn" onclick="newQuote()">اقتباس جديد</button>
+</div>
+
+<div class="card" style="text-align:center;background:#1f2937;color:white">
+<p>© 2026 خديجة إبراهيم - كل الحقوق محفوظة</p>
+<p>🔗 github.com/khadoujebrahim</p>
+</div>
+</div>
+
+<script>
+function addTask(){
+let v=document.getElementById('taskInput').value;
+if(!v)return;
+let li=document.createElement('li');
+li.textContent='📚 '+v;
+li.style.padding='8px';li.style.background='#f3f4f6';li.style.margin='5px 0';li.style.borderRadius='8px';
+document.getElementById('taskList').appendChild(li);
+document.getElementById('taskInput').value='';
+}
+function calc(){
+let a=parseFloat(document.getElementById('n1').value)||0;
+let b=parseFloat(document.getElementById('n2').value)||0;
+let c=parseFloat(document.getElementById('n3').value)||0;
+let m=((a+b+c)/3).toFixed(2);
+document.getElementById('result').innerText='معدلك: '+m+' /20 🎉';
+}
+let quotes=["الدراسة اليوم، القيادة غداً","لا تتوقف حتى تفتخر بنفسك","كل دقيقة دراسة تقربك من حلمك","أنت قادرة، فقط استمري"];
+function newQuote(){document.getElementById('quote').innerText=quotes[Math.floor(Math.random()*quotes.length)]}
+let time=1500,interval=null;
+function startTimer(){
+if(interval)return;
+interval=setInterval(()=>{
+time--;let m=Math.floor(time/60),s=time%60;
+document.getElementById('timer').innerText=(m<10?'0'+m:m)+':'+(s<10?'0'+s:s);
+if(time<=0){clearInterval(interval);interval=null;alert('أحسنت! خذي استراحة 5 دقائق ☕')}
+},1000);
+}
+function resetTimer(){clearInterval(interval);interval=null;time=1500;document.getElementById('timer').innerText='25:00'}
+</script>
+</body>
+  </html>
